@@ -1,0 +1,6 @@
+<bot name="The Stranger">
+    <case>
+        <keywords>удача, повезло</keywords>
+        <phrase>Бывает ты ешь медведя, а бывает, медведь тебя.</phrase>
+    </case>
+</bot>
