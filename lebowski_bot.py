@@ -10,6 +10,14 @@ from time import sleep
 
 
 class Bot(Process):
+    """ Each bot launches in separate process.
+
+        Class variables:
+        _bot_names - names list of all launched bots. With it bots can distinguish themselves from
+        other conference users.
+    """
+    _bot_names = []
+
     def __init__(self, xml):
         """
         Arguments:
@@ -24,7 +32,7 @@ class Bot(Process):
         self.xmpp_pwd = sys.argv[2]
         self.conf = sys.argv[3]
         self.bot_name = root.attrib['name']
-        bot_names.append(self.bot_name)
+        Bot._bot_names.append(self.bot_name)
         self.regexes = []
         self._load_regexes()
         self.client = None
@@ -75,12 +83,28 @@ class Bot(Process):
                     if self._replies_to_bots > 2:
                         self._replies_to_bots = 0
                         return
-                    if sender_name in bot_names:
+                    if sender_name in Bot._bot_names:
                         self._replies_to_bots += 1
 
                     sleep(2)
                     self.client.send(xmpp.protocol.Message(self.conf, phrase, "groupchat"))
                     break
+
+
+def run():
+    """ First, create all bots, so they can populate their Bot._bot_names list with names of all bots.
+        After that run each bot in separate process.
+        If you'll run each bot right after it's creation, then only the last bot will receive names of all bots,
+        because bots receiving their copies of Bot._bot_names at moment of launch, and this copies will be independent
+        and can't be modified by other processes.
+    """
+    bots = []
+    for xml in glob.glob("*.xml"):
+        bots.append(Bot(xml))
+
+    for bot in bots:
+        bot.start()
+        sleep(1)
 
 
 if __name__ == '__main__':
@@ -91,11 +115,4 @@ if __name__ == '__main__':
 
         sys.exit(0)
 
-    bot_names = []
-    bots = []
-    for xml in glob.glob("*.xml"):
-        bots.append(Bot(xml))
-
-    for bot in bots:
-        bot.start()
-        sleep(1)
+    run()
