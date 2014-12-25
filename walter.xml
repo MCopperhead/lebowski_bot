@@ -1,6 +1,6 @@
 <bot name="Walter">
     <case>
-        <keywords>правила</keywords>
+        <keywords>правила, правило, правил</keywords>
         <phrase>Смоки, тут не Вьетнам. Это — боулинг. Здесь есть правила.</phrase>
     </case>
 </bot>

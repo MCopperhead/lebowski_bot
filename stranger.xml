@@ -1,10 +1,10 @@
 <bot name="The Stranger">
     <case>
-        <keywords>удача, повезло</keywords>
+        <keywords>удача, повезло, бывает</keywords>
         <phrase>Бывает ты ешь медведя, а бывает, медведь тебя.</phrase>
     </case>
     <case>
-        <keywords>тьма, безысходность</keywords>
+        <keywords>тьма, безысходность, тьмы, тьму, тьме, безысходности</keywords>
         <phrase>Тьма поглотила Чувака. Темнее, чем в жопе чёрного мустанга безлунной ночью в прерии.</phrase>
     </case>
 </bot>

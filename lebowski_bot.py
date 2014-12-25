@@ -7,6 +7,7 @@ import glob
 import sys
 from multiprocessing import Process, Manager
 from time import sleep
+from random import shuffle
 
 
 class Bot(Process):
@@ -77,6 +78,8 @@ class Bot(Process):
             self.client.send(xmpp.protocol.Message(self.conf, u"{}: готово.".format(sender_name), "groupchat"))
             return
 
+        stop = False
+        shuffle(self.regexes)
         for keywords, phrase in self.regexes:
             for kw in keywords:
                 if kw.search(msg.getBody()):
@@ -88,7 +91,11 @@ class Bot(Process):
 
                     sleep(2)
                     self.client.send(xmpp.protocol.Message(self.conf, phrase, "groupchat"))
+                    stop = True
                     break
+
+            if stop:
+                break
 
 
 def run():
