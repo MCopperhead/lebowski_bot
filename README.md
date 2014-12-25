@@ -1,7 +1,7 @@
 Requirements:
 ============
-* python 2
-* xmpppy module (python-xmpp package in deb distros)
+- python 2
+- xmpppy module (python-xmpp package in deb distros)
 
 Usage:
 ============
